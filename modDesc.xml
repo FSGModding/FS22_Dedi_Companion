@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="67">
+    <author>FSG Modding</author>
+    <version>1.0.0.0</version>
+    <contributors>DaVaR, JTSage</contributors>
+    <title>
+        <en>Chat Companion</en>
+    </title>
+    <description>
+        <en><![CDATA[Multiplayer Chat Companion saves all chat data to the current savegame.]]></en>
+    </description>
+
+    <iconFilename>modIcon.dds</iconFilename>
+
+    <multiplayer supported="true" />
+
+    <extraSourceFiles>
+        <sourceFile filename="scripts/main.lua" />
+    </extraSourceFiles>
+
+    <l10n filenamePrefix="lang/l10n" />
+
+</modDesc>

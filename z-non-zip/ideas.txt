@@ -1,0 +1,43 @@
+update tic
+
+set to pull strings from xml every 15 min or so and post in chat.
+
+
+
+Maybe use this to monitor a folder for new chats from bot?
+
+Have it watch for new files, pull the data, send chat message, then delete, repeat.
+
+		local shaderFolder = "data/shaders/"
+		local files = Files.new(shaderFolder).files
+
+		for _, file in ipairs(files) do
+			addReplacedCustomShader(file.filename, shaderFolder .. file.filename)
+		end
+
+
+
+Commands
+✔️#meAdmin - If user has logged in as admin before, they can use this to make them admin again upon return to server.
+✔️#getUsers - Displays all available users on server with ID.
+✔️#makeAdmin (user id) - Admin can use this command to make another online user an admin.  User ID provided from #getUsers command.
+✔️#moo - This command prints a text cow because why not.
+⏳#meNoAdmin - Removes admin from yourself on current session. 
+✔️#rememberMe - Sets user to auto admin when they log on the server.
+✔️#forgetMe - Sets user to no longer auto admin when they log on the server.
+⏳#makeFM (user id) - Admin can use this command to make another online user an FM of farm they are in.  User ID provided from #getUsers command.
+⏳#removeFM (user id) - Admin can use this command to remove FM from user of farm they are in.  User ID provided from #getUsers command.
+⏳#getFarms - Displays all available farms on server with ID.
+⏳#farmAddUser (user id) (farm id) - Add user to farm with user id and farm id.  User ID provided from #getUsers command.  Farm ID provided from #getFarms command.
+
+
+
+
+
+Set to auto detect when a name change
+
+function FSBaseMission:setPlayerNickname(player, nickname, userId, noEventSend)
+
+
+
+Catch the honk event and put beep beep in chat.  

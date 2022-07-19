@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <translationContributors>DaVaR</translationContributors>
+
+    <texts>
+	    <text name="chat_greeting01"            text="Hey " />
+        <text name="chat_greeting02"            text="Hi there " />
+        <text name="chat_greeting03"            text="Hello " />
+        <text name="chat_greeting04"            text="Good day " />
+        <text name="chat_greeting05"            text="Howdy " />
+        <text name="chat_greetingTrigger01"     text="hi" />
+        <text name="chat_greetingTrigger02"     text="hello" />
+        <text name="chat_greetingTrigger03"     text="hey" />
+        <text name="chat_greetingTrigger04"     text="howdy" />
+        <text name="chat_greetingTrigger05"     text="sup" />
+        <text name="chat_now_admin"             text=" is now Admin!" />
+        <text name="chat_game_saved"            text="Game Saved Successfully!" />
+        <text name="chat_now_already_admin"     text="You are already Admin!" />
+        <text name="chat_admin_removed"         text=" is no longer Admin!" />
+        <text name="chat_is_already_admin"      text=" is already Admin!" />
+        <text name="chat_rememberme"             text=" is now auto Admin!" />
+        <text name="chat_forgetme"              text=" is no longer auto Admin!" />
+
+        <!-- Commands -->
+        <text name="chat_command_me_admin"      text="#meAdmin" />
+        <text name="chat_command_remove_admin"  text="#meNoAdmin" />
+        <text name="chat_command_users"         text="#getUsers" />
+        <text name="chat_command_moo"           text="#moo" />
+        <text name="chat_command_make_admin"    text="#makeAdmin" />
+        <text name="chat_command_rememberme"    text="#rememberMe" />
+        <text name="chat_command_forgetme"      text="#forgetMe" />
+        
+    </texts>
+</l10n>
