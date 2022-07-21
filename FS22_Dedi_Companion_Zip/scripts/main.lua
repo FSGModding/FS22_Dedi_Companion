@@ -16,17 +16,15 @@ local function init()
 	source(modDirectory .. "scripts/getNewJoin.lua")
 
 	-- Load all command files
-	local commandsFolder = modDirectory .. "scripts/commands/"
-	local commandFiles = Files.new(commandsFolder)
-
-	print(commandsFolder)
-	print(commandFiles)
-	DebugUtil.printTableRecursively(commandFiles.files, "*** Chat Companion Debug *** commandFiles : ", 0, 1)
-
-	for _, cfile in ipairs(commandFiles.files) do
-		print("command files : ", cfile)
-		--source(cfile.filename, commandsFolder .. cfile.filename)
-	end
+	source(modDirectory .. "scripts/commands/forgetMe.lua")
+	source(modDirectory .. "scripts/commands/getFarms.lua")
+	source(modDirectory .. "scripts/commands/getUsers.lua")
+	source(modDirectory .. "scripts/commands/help.lua")
+	source(modDirectory .. "scripts/commands/makeAdmin.lua")
+	source(modDirectory .. "scripts/commands/makeFM.lua")
+	source(modDirectory .. "scripts/commands/meAdmin.lua")
+	source(modDirectory .. "scripts/commands/rememberMe.lua")
+	source(modDirectory .. "scripts/commands/removeAdmin.lua")
 
     assert(g_chatLogger == nil)
     modEnvironmentChat = ChatLogger:new(mission, g_i18n, modDirectory, modName)

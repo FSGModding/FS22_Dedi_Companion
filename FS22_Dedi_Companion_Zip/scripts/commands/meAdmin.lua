@@ -3,15 +3,7 @@ print("MeAdminCommand Class")
 MeAdminCommand = {}
 local MeAdminCommand_mt = Class(MeAdminCommand, Event)
 
-InitEventClass(MeAdminCommand, "MeAdminCommand", EventIds.EVENT_FINISHED_LOADING)
-
-function MeAdminCommand.new(mission, i18n, modDirectory, modName)
-    print("GNJ-New")
-	local self = setmetatable({}, MeAdminCommand_mt)
-	return self
-end
-
-function MeAdminCommand.meAdmin(connection, fromUser, fromUserId, sendToAllPlayers)
+function MeAdminCommand.meAdmin(connection, fromUser, fromUserId)
 
     local modSettingsFolderPath = getUserProfileAppPath()  .. "modSettings/FS22_Chat_Companion"
     local modSettingsFile = modSettingsFolderPath .. "/Admins.xml"
@@ -38,12 +30,12 @@ function MeAdminCommand.meAdmin(connection, fromUser, fromUserId, sendToAllPlaye
     
             table.insert(admins, admin)
     
-            --DebugUtil.printTableRecursively(admins, "*** Chat Companion Debug *** table.admins : ", 0, 1)
+            --DebugUtil.printTableRecursively(admins, "*** Dedi Companion Debug *** table.admins : ", 0, 1)
     
             adminsIds[admin.adminId] = admin
         end)
     
-        --DebugUtil.printTableRecursively(admins, "*** Chat Companion Debug *** xmlFile.admins : ", 0, 1)
+        --DebugUtil.printTableRecursively(admins, "*** Dedi Companion Debug *** xmlFile.admins : ", 0, 1)
     
         for _, adminLoop in pairs(admins) do
             --Make user admin if they are in the admins xml file
@@ -51,11 +43,11 @@ function MeAdminCommand.meAdmin(connection, fromUser, fromUserId, sendToAllPlaye
             if fromUserId == adminLoop.adminId then
                 if not fromUser.isMasterUser then 
                     g_currentMission.userManager:addMasterUser(fromUser)
-                    print(self.sender .. g_i18n:getText("chat_now_admin"))
-                    g_server:broadcastEvent(ChatEvent.new(self.sender .. g_i18n:getText("chat_now_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
+                    print(fromUser.nickname .. g_i18n:getText("chat_now_admin"))
+                    g_server:broadcastEvent(ChatEvent.new(fromUser.nickname .. g_i18n:getText("chat_now_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
                 else
                     print("Already Admin User")
-                    g_server:broadcastEvent(ChatEvent.new(self.sender .. g_i18n:getText("chat_now_already_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
+                    g_server:broadcastEvent(ChatEvent.new(fromUser.nickname .. g_i18n:getText("chat_now_already_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
                 end
             end
         end

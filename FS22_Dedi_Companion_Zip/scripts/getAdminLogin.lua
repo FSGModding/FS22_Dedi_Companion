@@ -18,7 +18,7 @@ function GetAdminLogin.userNowAdminEvent(user)
 		--Event is working, just need to get it to show all users that are masterUsers
 		local serverUserManager = g_currentMission.userManager
 		local allMasterUsers = serverUserManager:getMasterUsers()
-		-- DebugUtil.printTableRecursively(allMasterUsers, "*** Chat Companion Debug *** allMasterUsers : ", 0, 1)
+		-- DebugUtil.printTableRecursively(allMasterUsers, "*** Dedi Companion Debug *** allMasterUsers : ", 0, 1)
 		--Load XML Data and check if new, then update.
 		if allMasterUsers ~= nil then
 			for _, masterUser in pairs(allMasterUsers) do

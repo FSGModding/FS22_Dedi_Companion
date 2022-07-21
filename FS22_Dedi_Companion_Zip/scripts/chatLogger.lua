@@ -69,10 +69,10 @@ function ChatEventSaver:run(connection)
 		--add to chat logger
 		self:addChatLoggerData(self.sender, self.msg, self.farmId, fromUserId)
 
-		--print("*** Chat Companion Debug *** isMasterUser : ", fromUser.isMasterUser)
+		--print("*** Dedi Companion Debug *** isMasterUser : ", fromUser.isMasterUser)
 
 		--Setup the command with arguments
-		-- print("*** Chat Companion Debug *** Chat Command with Arguments : ")
+		-- print("*** Dedi Companion Debug *** Chat Command with Arguments : ")
 		local argNum = 0
 		local command
 		local args = {}
@@ -86,37 +86,21 @@ function ChatEventSaver:run(connection)
 		end
 
 		-- print(command)
-		-- DebugUtil.printTableRecursively(args, "*** Chat Companion Debug *** args : ", 0, 1)
+		-- DebugUtil.printTableRecursively(args, "*** Dedi Companion Debug *** args : ", 0, 1)
 
 		-- Chat make user sending message admin if they are in Admin.xml command
 		if (command == g_i18n:getText("chat_command_me_admin")) then
-			
+			MeAdminCommand.meAdmin(connection, fromUser, fromUserId)
 		end
+
+		--Chat command that give a user admin access based on their id from #getUsers
+		if (command == g_i18n:getText("chat_command_make_admin")) and fromUser.isMasterUser then
+			MakeAdminCommand.makeAdmin(connection, fromUser, fromUserId, args, self)
+		end	
 		
 		-- Chat print out current players on server with their id on server that can be used for other commands.
 		if (command == g_i18n:getText("chat_command_users")) and fromUser.isMasterUser then
-			-- print("Chat Command Users")
-			local currentUsers = g_currentMission.userManager:getUsers()
-			local allUsersOutput = {}
-			--DebugUtil.printTableRecursively(currentUsers, "*** Chat Companion Debug *** currentUsers : ", 0, 1)
-			--Loop through the users and put id with nick in a string for output
-			local adminFM
-			for _, usersOut in ipairs(currentUsers) do 
-				--if usersOut.nickname ~= "Server" then
-					-- print(usersOut.id, usersOut.nickname)
-					if usersOut.isMasterUser then
-						adminFM = " [Admin]"
-					elseif usersOut.isFarmManager then
-						adminFM = " [FM]"
-					end
-					local userOutput = usersOut.id .. " : " .. usersOut.nickname .. " " .. adminFM
-					table.insert(allUsersOutput, userOutput)
-				--end
-			end
-			--Put all the users together as a message
-			local usersTextReply = table.concat(allUsersOutput, "\n")
-			-- print("*** Chat Companion Debug *** allUsersOutput : " .. usersTextReply)
-			g_server:broadcastEvent(ChatEvent.new(usersTextReply,g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
+			GetUsersCommand.getUsers()
 		end
 
 		-- Chat moo cow thingy because why not
@@ -127,74 +111,33 @@ function ChatEventSaver:run(connection)
 
 		--Remove user admin
 		--Disabled for now.  Logs user out in the backend, but visualy still looks like an admin.  Have to figure out if it is possible to refresh the player menus and walking speed. 
-		--if (self.msg == g_i18n:getText("chat_command_remove_admin")) and fromUser.isMasterUser then
-			--g_currentMission.userManager:removeMasterUser(fromUser)
-			--Remove user from tables to trick into removing admin both backend and visually. 
-			-- g_currentMission.userManager:removeUser(fromUser)
-			--Add the user back as a non admin.
-			-- g_currentMission.userManager:addUser(fromUser)
-			--Need to figure out how to refresh the menus to reflect the user not being admin anymore. 
-			-- g_server:broadcastEvent(ChatEvent.new(self.sender .. g_i18n:getText("chat_admin_removed"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
-			-- print("Admin Removed")			
-		-- end
-
-		--Chat command that give a user admin access based on their id from #getUsers
-		if (command == g_i18n:getText("chat_command_make_admin")) and fromUser.isMasterUser then
-			local argUserId = args[1]
-			local currentUsers = g_currentMission.userManager:getUsers()
-			if argUserId ~= nil then 
-				-- print(argUserId)
-				local mau = self:getUserDataById(currentUsers, argUserId)
-				if mau ~= nil and mau then 
-					-- Check to see if admin already
-					if not mau.isMasterUser then
-						-- Make user admin
-						g_currentMission.userManager:addMasterUser(mau)
-						print(mau.nickname .. g_i18n:getText("chat_now_admin"))
-						g_server:broadcastEvent(ChatEvent.new(mau.nickname .. g_i18n:getText("chat_now_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
-						mau:getConnection():sendEvent(self, false)
-					else
-						g_server:broadcastEvent(ChatEvent.new(mau.nickname .. g_i18n:getText("chat_is_already_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
-					end
-				end
-			end
-		end	
+		if (self.msg == g_i18n:getText("chat_command_remove_admin")) and fromUser.isMasterUser then
+			RemoveAdminCommand.removeAdmin(fromUser)
+		end
 
 		--Chat command that sets user to be remembered so they can be auto admin when they join the server
 		if (command == g_i18n:getText("chat_command_rememberme")) and fromUser.isMasterUser then
-			print("*** Chat Companion Debug *** Remember Me Command Start")
-			-- Check to see if Remember Me folder exists
-			local rememberMeFolderPath = getUserProfileAppPath()  .. "modSettings/FS22_Chat_Companion/rememberMe"
-			local rememberMeFile = rememberMeFolderPath .. "/" .. fromUserId .. ".xml"
-			local key = "admin"
-
-			if ( not fileExists(rememberMeFolderPath) ) then
-				createFolder(rememberMeFolderPath)
-			end
-
-			--save data to xml file
-			newxmlFileRM = XMLFile.create(key, rememberMeFile, key)
-
-			newxmlFileRM:setString(key .. "#adminName", tostring(fromUser.nickname))
-			newxmlFileRM:setString(key .. "#adminId", tostring(fromUser.uniqueUserId))
-
-			newxmlFileRM:save()
-			newxmlFileRM:delete()			
-			g_server:broadcastEvent(ChatEvent.new(self.sender .. g_i18n:getText("chat_rememberme"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
+			RememberMeCommand.rememberMe(fromUser, fromUserId)
 		end
 
 		--Chat command that sets user to no longer be remembered so they can be auto admin when they join the server
 		if (command == g_i18n:getText("chat_command_forgetme")) and fromUser.isMasterUser then
-			print("*** Chat Companion Debug *** Forget Me Command Start")
-			-- Check to see if Forget Me folder exists
-			local forgetMeFolderPath = getUserProfileAppPath()  .. "modSettings/FS22_Chat_Companion/rememberMe"
-			local forgetMeFile = forgetMeFolderPath .. "/" .. fromUserId .. ".xml"
-			local key = "admin"
+			ForgetMeCommand.forgetMe(fromUser, fromUserId)
+		end
 
-			if fileExists(forgetMeFile) then
-				deleteFile(forgetMeFile)
-				g_server:broadcastEvent(ChatEvent.new(self.sender .. g_i18n:getText("chat_forgetme"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
-			end
+		--Chat command that displays farms with id
+		if (command == g_i18n:getText("chat_command_getfarms")) and fromUser.isMasterUser then
+			GetFarmsCommand.getFarms(fromUser, fromUserId)
+		end
+
+		--Chat command that admin can use to make a player FM of set farm
+		if (command == g_i18n:getText("chat_command_makefm")) and fromUser.isMasterUser then
+			MakeFMCommand.makeFM(connection, fromUser, fromUserId, args, self)
+		end
+
+		--Chat command displays all commands
+		if (command == g_i18n:getText("chat_command_help")) then
+			GetHelpCommand.getHelp(fromUser, args)
 		end
 
 		--Send hello message if anyone says hi
@@ -222,15 +165,15 @@ function ChatEventSaver:randomGreeting(name)
 	-- Get a number between 1 and 5
 	local ranNumber = math.random(5)
 	if ranNumber == 1 then
-		return g_i18n:getText("chat_greeting01") .. name .. "!"
+		return string.format(g_i18n:getText("chat_greeting01"),name)
 	elseif ranNumber == 2 then
-		return g_i18n:getText("chat_greeting02") .. name .. "!"
+		return string.format(g_i18n:getText("chat_greeting02"),name)
 	elseif ranNumber == 3 then
-		return g_i18n:getText("chat_greeting03") .. name .. "!"
+		return string.format(g_i18n:getText("chat_greeting03"),name)
 	elseif ranNumber == 5 then
-		return g_i18n:getText("chat_greeting04") .. name .. "!"
+		return string.format(g_i18n:getText("chat_greeting04"),name)
 	else 
-		return g_i18n:getText("chat_greeting05") .. name .. "!"
+		return string.format(g_i18n:getText("chat_greeting05"),name)
 	end
 end
 
@@ -261,7 +204,7 @@ function ChatEventSaver:addChatLoggerData(sender, msg, farmId, fromUserId)
 		--local metadata = saveGetInfoById(g_currentMission.missionInfo.savegameIndex) 
 		--local xmlFileFromMemory = loadXMLFileFromMemory(key, metadata)
 		--if metadata ~= nil and xmlFileFromMemory ~= nil then 
-		--	DebugUtil.printTableRecursively(xmlFileFromMemory, "*** Chat Companion Debug *** chatXMLFile : ", 0, 1)
+		--	DebugUtil.printTableRecursively(xmlFileFromMemory, "*** Dedi Companion Debug *** chatXMLFile : ", 0, 1)
 		--else
 
 			xmlFile = createXMLFile(key, savegameFile, key)
@@ -345,13 +288,13 @@ end
 
 -- Get user data based on user id for the current server session
 function ChatEventSaver:getUserDataById(currentUsers, userId) 
-	-- print("*** Chat Companion Debug *** getUserDataById Function - userId : " .. userId)
+	-- print("*** Dedi Companion Debug *** getUserDataById Function - userId : " .. userId)
 	local userDataOut
 	if currentUsers ~= nil then
-		-- DebugUtil.printTableRecursively(currentUsers, "*** Chat Companion Debug *** currentUsers : ", 0, 1)
+		-- DebugUtil.printTableRecursively(currentUsers, "*** Dedi Companion Debug *** currentUsers : ", 0, 1)
 		--Loop through the users and put id with nick in a string for output
 		for _, usersOut in ipairs(currentUsers) do 
-			-- print("*** Chat Companion Debug *** usersOut.id : " .. usersOut.id)
+			-- print("*** Dedi Companion Debug *** usersOut.id : " .. usersOut.id)
 			if math.floor(usersOut.id) == math.floor(userId) then 
 				userDataOut = usersOut
 			end
