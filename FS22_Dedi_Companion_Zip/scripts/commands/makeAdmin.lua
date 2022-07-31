@@ -1,4 +1,4 @@
-print("MakeAdminCommand Class")
+dcDebug("MakeAdminCommand Class")
 
 MakeAdminCommand = {}
 local MakeAdminCommand_mt = Class(MakeAdminCommand, Event)
@@ -14,7 +14,7 @@ function MakeAdminCommand.makeAdmin(connection, fromUser, fromUserId, args, self
             if not mau.isMasterUser then
                 -- Make user admin
                 g_currentMission.userManager:addMasterUser(mau)
-                print(mau.nickname .. g_i18n:getText("chat_now_admin"))
+                dcDebug(mau.nickname .. g_i18n:getText("chat_now_admin"))
                 g_server:broadcastEvent(ChatEvent.new(mau.nickname .. g_i18n:getText("chat_now_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
                 mau:getConnection():sendEvent(mau, false)
             else

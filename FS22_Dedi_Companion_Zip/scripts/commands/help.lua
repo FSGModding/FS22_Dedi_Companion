@@ -1,4 +1,4 @@
-print("GetHelpCommand Class")
+dcDebug("GetHelpCommand Class")
 
 GetHelpCommand = {}
 local GetHelpCommand_mt = Class(GetHelpCommand, Event)

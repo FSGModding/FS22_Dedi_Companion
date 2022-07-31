@@ -1,4 +1,4 @@
-print("RemoveAdminCommand Class")
+dcDebug("RemoveAdminCommand Class")
 
 RemoveAdminCommand = {}
 local RemoveAdminCommand_mt = Class(RemoveAdminCommand, Event)
@@ -11,5 +11,5 @@ function RemoveAdminCommand.removeAdmin(fromUser)
     g_currentMission.userManager:addUser(fromUser)
     --Need to figure out how to refresh the menus to reflect the user not being admin anymore. 
     g_server:broadcastEvent(ChatEvent.new(fromUser.nickname .. g_i18n:getText("chat_admin_removed"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
-    print("Admin Removed")	
+    dcDebug("Admin Removed")	
 end

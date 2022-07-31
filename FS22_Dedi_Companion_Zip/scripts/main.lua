@@ -8,7 +8,7 @@ local modEnvironmentNewJoin
 ---Init the mod.
 local function init()
     -- Mod is loaded in to the game here.  Yay!
-    print("Starting the Multiplayer Chat Companion");
+    dcDebug("Starting the Multiplayer Chat Companion")
   
 	source(modDirectory .. "scripts/chatNoti.lua")
     source(modDirectory .. "scripts/chatLogger.lua")
@@ -51,6 +51,8 @@ local function init()
 	FSBaseMission.onConnectionFinishedLoading = Utils.appendedFunction(FSBaseMission.onConnectionFinishedLoading, onConnectionFinishedLoading)
 
 	HelpLineManager.loadMapData = Utils.overwrittenFunction(HelpLineManager.loadMapData, ChatLogger.loadMapDataHelpLineManager)
+
+	FSBaseMission.updateGameStatsXML = Utils.overwrittenFunction(FSBaseMission.updateGameStatsXML, ChatLogger.dediStatsUpdate)
 
 end
 
@@ -96,11 +98,11 @@ function ChatLogger:onSendClick(superFunc)
 			if g_server ~= nil then
 				g_server:broadcastEvent(ChatEvent.new(self.textElement.text, nickname, farmId, g_currentMission.playerUserId))
 				g_server:broadcastEvent(ChatEventSaver.new(self.textElement.text, nickname, farmId, g_currentMission.playerUserId))
-                --print("g_server local")
+                dcDebug("g_server local", false)
             else
 				g_client:getServerConnection():sendEvent(ChatEvent.new(self.textElement.text, nickname, farmId, g_currentMission.playerUserId))
 				g_client:getServerConnection():sendEvent(ChatEventSaver.new(self.textElement.text, nickname, farmId, g_currentMission.playerUserId))
-                --print("g_server client")
+                dcDebug("g_server client", false)
 			end
 
 			g_currentMission:addChatMessage(nickname, self.textElement.text, farmId, g_currentMission.playerUserId)
@@ -122,9 +124,200 @@ function ChatLogger:loadMapDataHelpLineManager(superFunc, ...)
     return false
 end
 
+function ChatLogger:dediStatsUpdate(superFunc)
+	if g_dedicatedServer ~= nil then
+		local statsPath = g_dedicatedServer.gameStatsPath
+		local key = "Server"
+		local xmlFile = createXMLFile("serverStatsFile", statsPath, key)
+
+		dcDebug("Game Stats Path: " .. statsPath)
+
+		if xmlFile ~= nil and xmlFile ~= 0 then
+
+			dcDebug("Dedi Stats Update!")
+
+			local gameName = self.missionDynamicInfo.serverName or ""
+			local mapName = "Unknown"
+			local map = g_mapManager:getMapById(self.missionInfo.mapId)
+
+			if map ~= nil then
+				mapName = map.title
+			end
+
+			local dayTime = 0
+
+			if self.environment ~= nil then
+				dayTime = self.environment.dayTime
+			end
+
+			local mapSize = Utils.getNoNil(self.terrainSize, 2048)
+			local numUsers = self.userManager:getNumberOfUsers()
+
+			if g_dedicatedServer ~= nil then
+				numUsers = numUsers - 1
+			end
+
+			local capacity = self.missionDynamicInfo.capacity or 0
+
+			setXMLString(xmlFile, key .. "#game", "Farming Simulator 22")
+			setXMLString(xmlFile, key .. "#version", g_gameVersionDisplay .. g_gameVersionDisplayExtra)
+			setXMLString(xmlFile, key .. "#name", HTMLUtil.encodeToHTML(gameName))
+			setXMLString(xmlFile, key .. "#mapName", HTMLUtil.encodeToHTML(mapName))
+			setXMLInt(xmlFile, key .. "#dayTime", dayTime)
+			setXMLString(xmlFile, key .. "#mapOverviewFilename", NetworkUtil.convertToNetworkFilename(self.mapImageFilename))
+			setXMLInt(xmlFile, key .. "#mapSize", mapSize)
+			setXMLInt(xmlFile, key .. ".Slots#capacity", capacity)
+			setXMLInt(xmlFile, key .. ".Slots#numUsed", numUsers)
+
+			local i = 0
+
+			for _, user in ipairs(self.userManager:getUsers()) do
+				local player = nil
+				local connection = user:getConnection()
+
+				if connection ~= nil then
+					player = self.connectionsToPlayer[connection]
+				end
+
+				if user:getId() ~= self:getServerUserId() or g_dedicatedServer == nil then
+					local playerKey = string.format("%s.Slots.Player(%d)", key, i)
+					local playtime = (self.time - user:getConnectedTime()) / 60000
+
+					setXMLBool(xmlFile, playerKey .. "#isUsed", true)
+					setXMLBool(xmlFile, playerKey .. "#isAdmin", user:getIsMasterUser())
+					setXMLInt(xmlFile, playerKey .. "#uptime", playtime)
+
+					if player ~= nil and player.isControlled and player.rootNode ~= nil and player.rootNode ~= 0 then
+						local x, y, z = getWorldTranslation(player.rootNode)
+
+						setXMLFloat(xmlFile, playerKey .. "#x", x)
+						setXMLFloat(xmlFile, playerKey .. "#y", y)
+						setXMLFloat(xmlFile, playerKey .. "#z", z)
+					end
+
+					setXMLString(xmlFile, playerKey, HTMLUtil.encodeToHTML(user:getNickname(), true))
+
+					i = i + 1
+				end
+			end
+
+			for n = numUsers + 1, capacity do
+				local playerKey = string.format("%s.Slots.Player(%d)", key, n)
+
+				setXMLBool(xmlFile, playerKey .. "#isUsed", false)
+			end
+
+			i = 0
+
+			for _, vehicle in pairs(self.vehicles) do
+				local vehicleKey = string.format("%s.Vehicles.Vehicle(%d)", key, i)
+
+				if vehicle:saveStatsToXMLFile(xmlFile, vehicleKey) then
+					i = i + 1
+				end
+			end
+
+			i = 0
+
+			for _, mod in pairs(self.missionDynamicInfo.mods) do
+				local modKey = string.format("%s.Mods.Mod(%d)", key, i)
+
+				setXMLString(xmlFile, modKey .. "#name", HTMLUtil.encodeToHTML(mod.modName))
+				setXMLString(xmlFile, modKey .. "#author", HTMLUtil.encodeToHTML(mod.author))
+				setXMLString(xmlFile, modKey .. "#version", HTMLUtil.encodeToHTML(mod.version))
+				setXMLString(xmlFile, modKey, HTMLUtil.encodeToHTML(mod.title, true))
+
+				if mod.fileHash ~= nil then
+					setXMLString(xmlFile, modKey .. "#hash", HTMLUtil.encodeToHTML(mod.fileHash))
+				end
+
+				i = i + 1
+			end
+
+			i = 0
+
+			for _, farmland in pairs(g_farmlandManager:getFarmlands()) do
+				local farmlandKey = string.format("%s.Farmlands.Farmland(%d)", key, i)
+
+				setXMLString(xmlFile, farmlandKey .. "#name", tostring(farmland.name))
+				setXMLInt(xmlFile, farmlandKey .. "#id", farmland.id)
+				setXMLInt(xmlFile, farmlandKey .. "#owner", g_farmlandManager:getFarmlandOwner(farmland.id))
+				setXMLFloat(xmlFile, farmlandKey .. "#area", farmland.areaInHa)
+				setXMLInt(xmlFile, farmlandKey .. "#area", farmland.price)
+				setXMLFloat(xmlFile, farmlandKey .. "#x", farmland.xWorldPos)
+				setXMLFloat(xmlFile, farmlandKey .. "#z", farmland.zWorldPos)
+
+				i = i + 1
+			end
+
+			i = 0
+
+			for _, field in pairs(g_fieldManager:getFields()) do
+				local fieldKey = string.format("%s.Fields.Field(%d)", key, i)
+
+				setXMLString(xmlFile, fieldKey .. "#id", tostring(field.fieldId))
+				setXMLFloat(xmlFile, fieldKey .. "#x", field.posX)
+				setXMLFloat(xmlFile, fieldKey .. "#z", field.posZ)
+				setXMLBool(xmlFile, fieldKey .. "#isOwned", not field.isAIActive)
+
+				i = i + 1
+			end
+
+			local adminSettingsFolderPath = getUserProfileAppPath()  .. "modSettings/FS22_Chat_Companion"
+			local adminSettingsFile = adminSettingsFolderPath .. "/Admins.xml"
+			local adminsKey = "admins"
+			local xmlFileAdsmins = XMLFile.load(adminsKey, adminSettingsFile)
+			local admins = {}
+
+			dcDebug(xmlFileAdsmins, "Table")
+
+			xmlFileAdsmins:iterate(adminsKey .. ".admin", function (_, adminKey)
+				dcDebug("adminKey: " .. adminKey)
+				local admin = {
+					adminName = xmlFileAdsmins:getString(adminKey .. "#adminName"),
+					adminId = xmlFileAdsmins:getString(adminKey .. "#adminId"),
+				}
+				table.insert(admins, admin)
+			end)
+
+			dcDebug(admins, "Table")
+
+			i = 0
+
+			for _, adminData in pairs(admins) do
+				dcDebug("adminData.adminName: " .. adminData.adminName)
+				local dcKey = string.format("%s.DediCompanionAdmins.Admins(%d)", key, i)
+	
+				setXMLString(xmlFile, dcKey .. "#adminName", tostring(adminData.adminName))
+				setXMLString(xmlFile, dcKey .. "#adminId", tostring(adminData.adminId))
+	
+				i = i + 1
+			end
+
+			saveXMLFile(xmlFile)
+			delete(xmlFile)
+		
+		end
+
+	end
+
+	self.gameStatsTime = self.time + self.gameStatsInterval
+end
+
 function onConnectionFinishedLoading(connection, ...)
 	GetNewJoin.newUserJoin(...)
 end
 
+function dcDebug(data, action)
+
+	if action ~= false then
+		if action == 'Table' then
+			print("** Dedi Companion Debug Table **")
+			DebugUtil.printTableRecursively(data, "  tabledata : ", 0, 1)
+		else
+			print("** Dedi Companion Debug ** : " .. data)
+		end
+	end
+end
 
 init()

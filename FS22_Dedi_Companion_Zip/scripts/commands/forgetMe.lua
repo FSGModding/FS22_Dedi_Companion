@@ -1,10 +1,10 @@
-print("ForgetMeCommand Class")
+dcDebug("ForgetMeCommand Class")
 
 ForgetMeCommand = {}
 local ForgetMeCommand_mt = Class(ForgetMeCommand, Event)
 
 function ForgetMeCommand.forgetMe(fromUser, fromUserId)
-    print("*** Dedi Companion Debug *** Forget Me Command Start")
+    dcDebug("*** Dedi Companion Debug *** Forget Me Command Start")
     -- Check to see if Forget Me folder exists
     local forgetMeFolderPath = getUserProfileAppPath()  .. "modSettings/FS22_Chat_Companion/rememberMe"
     local forgetMeFile = forgetMeFolderPath .. "/" .. fromUserId .. ".xml"

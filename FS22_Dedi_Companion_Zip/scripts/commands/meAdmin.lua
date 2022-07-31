@@ -1,4 +1,4 @@
-print("MeAdminCommand Class")
+dcDebug("MeAdminCommand Class")
 
 MeAdminCommand = {}
 local MeAdminCommand_mt = Class(MeAdminCommand, Event)
@@ -43,10 +43,10 @@ function MeAdminCommand.meAdmin(connection, fromUser, fromUserId)
             if fromUserId == adminLoop.adminId then
                 if not fromUser.isMasterUser then 
                     g_currentMission.userManager:addMasterUser(fromUser)
-                    print(fromUser.nickname .. g_i18n:getText("chat_now_admin"))
+                    dcDebug(fromUser.nickname .. g_i18n:getText("chat_now_admin"))
                     g_server:broadcastEvent(ChatEvent.new(fromUser.nickname .. g_i18n:getText("chat_now_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
                 else
-                    print("Already Admin User")
+                    dcDebug("Already Admin User")
                     g_server:broadcastEvent(ChatEvent.new(fromUser.nickname .. g_i18n:getText("chat_now_already_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
                 end
             end

@@ -27,7 +27,7 @@ function GetNewJoin.newUserJoin(user)
         --make sure user is not already master user
         if not userData.isMasterUser then 
             g_currentMission.userManager:addMasterUser(userData)
-            print(userData.nickname .. g_i18n:getText("chat_now_admin"))
+            dcDebug(userData.nickname .. g_i18n:getText("chat_now_admin"))
             g_server:broadcastEvent(ChatEvent.new(userData.nickname .. g_i18n:getText("chat_now_admin"),g_currentMission.missionDynamicInfo.serverName,FarmManager.SPECTATOR_FARM_ID,0))
         end
     end

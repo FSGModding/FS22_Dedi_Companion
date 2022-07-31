@@ -91,7 +91,7 @@ function GetAdminLogin:addAdminLoggerData(adminName, adminId)
 
 	else 
 
-		print("No Admins.xml yet.  Creating one.")
+		dcDebug("No Admins.xml yet.  Creating one.")
 
 		xmlFile = createXMLFile(key, modSettingsFile, key)
 

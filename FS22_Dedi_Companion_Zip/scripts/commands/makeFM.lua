@@ -1,4 +1,4 @@
-print("MakeFMCommand Class")
+dcDebug("MakeFMCommand Class")
 
 MakeFMCommand = {}
 local MakeFMCommand_mt = Class(MakeFMCommand, Event)
@@ -8,14 +8,14 @@ function MakeFMCommand.makeFM(connection, fromUser, fromUserId, args, self)
     local argFarmId = args[2]
     local currentUsers = g_currentMission.userManager:getUsers()
     if argUserId ~= nil and argFarmId ~= nil then 
-        print("argUserId : " .. argUserId)
-        print("argFarmId : " .. argFarmId)
+        dcDebug("argUserId : " .. argUserId)
+        dcDebug("argFarmId : " .. argFarmId)
         local mau = self:getUserDataById(currentUsers, argUserId)
         local maf = g_farmManager:getFarmById(argFarmId)
 
-        DebugUtil.printTableRecursively(mau, "*** Dedi Companion Debug *** mau : ", 0, 1)
-        print("maf : ")
-        print(maf)
+        dcDebug(mau, "Table")
+        dcDebug("maf : ")
+        dcDebug(maf)
 
         -- if mau ~= nil and mau then 
         --     -- Check to see if admin already
