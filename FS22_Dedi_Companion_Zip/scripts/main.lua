@@ -50,16 +50,35 @@ local function init()
     addModEventListener(modEnvironmentNewJoin)
 	FSBaseMission.onConnectionFinishedLoading = Utils.appendedFunction(FSBaseMission.onConnectionFinishedLoading, onConnectionFinishedLoading)
 
+	HelpLineManager.loadMapData = Utils.overwrittenFunction(HelpLineManager.loadMapData, ChatLogger.loadMapDataHelpLineManager)
+
 end
 
 ChatLogger = {}
 
 local ChatLogger_mt = Class(ChatLogger)
 
-
 function ChatLogger:new(mission, i18n, modDirectory, modName)
 	local self = setmetatable({}, ChatLogger_mt)
+
+	self.lastScrollTime = 0
+	self.returnScreenName = ""
+
 	return self
+end
+
+function ChatLogger:onClose(superFunc)
+	ChatLogger:superClass().onClose(self)
+
+	if g_currentMission ~= nil then
+		g_currentMission:scrollChatMessages(-9999999)
+		g_currentMission:toggleChat(false)
+
+		g_currentMission.isPlayerFrozen = false
+	end
+
+	self.textElement:abortIme()
+	self.textElement:setForcePressed(false)
 end
 
 function ChatLogger:onSendClick(superFunc)
@@ -92,6 +111,15 @@ function ChatLogger:onSendClick(superFunc)
 	end
 
 	g_gui:showGui("")
+end
+
+function ChatLogger:loadMapDataHelpLineManager(superFunc, ...)
+    local ret = superFunc(self, ...)
+    if ret then
+        self:loadFromXML(Utils.getFilename("help/HelpMenu.xml", modDirectory))
+        return true
+    end
+    return false
 end
 
 function onConnectionFinishedLoading(connection, ...)

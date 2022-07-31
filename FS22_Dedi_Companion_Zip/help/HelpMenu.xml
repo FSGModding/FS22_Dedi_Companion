@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<helpLines>
+    <!--Help category-->
+    <category title="$l10n_dc_help_title">
+        <!-- Help tab -->
+        <page title="$l10n_dc_overview">
+            <paragraph>
+                <text text="$l10n_dc_help_page_base_text" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_dc_help_page_base_cmds" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_me_admin" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_me_admin" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_remove_admin" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_remove_admin" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_users" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_users" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_moo" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_moo" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_make_admin" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_make_admin" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_rememberme" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_rememberme" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_forgetme" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_forgetme" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_getfarms" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_getfarms" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_makefm" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_makefm" />
+            </paragraph>
+        </page>
+    </category>
+</helpLines>

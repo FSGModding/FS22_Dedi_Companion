@@ -135,11 +135,6 @@ function ChatEventSaver:run(connection)
 			MakeFMCommand.makeFM(connection, fromUser, fromUserId, args, self)
 		end
 
-		--Chat command displays all commands
-		if (command == g_i18n:getText("chat_command_help")) then
-			GetHelpCommand.getHelp(fromUser, args)
-		end
-
 		--Send hello message if anyone says hi
 		--Add ability to send random responses from a list
 		if (string.lower(self.msg) == g_i18n:getText("chat_greetingTrigger01")) or (string.lower(self.msg) == g_i18n:getText("chat_greetingTrigger02")) or (string.lower(self.msg) == g_i18n:getText("chat_greetingTrigger03")) or (string.lower(self.msg) == g_i18n:getText("chat_greetingTrigger04")) or (string.lower(self.msg) == g_i18n:getText("chat_greetingTrigger05")) then
