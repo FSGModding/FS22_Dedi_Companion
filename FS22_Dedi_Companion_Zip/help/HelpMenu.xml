@@ -64,6 +64,12 @@
             <paragraph>
                 <text text="$l10n_chat_command_info_makefm" />
             </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_save_vehicles" />
+            </paragraph>
+            <paragraph>
+                <text text="$l10n_chat_command_info_save_vehicles" />
+            </paragraph>
         </page>
     </category>
 </helpLines>

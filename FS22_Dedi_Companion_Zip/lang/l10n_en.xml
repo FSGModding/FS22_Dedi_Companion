@@ -33,6 +33,7 @@
         <text name="chat_command_forgetme"      text="#forgetMe" />
         <text name="chat_command_getfarms"      text="#getFarms" />
         <text name="chat_command_makefm"        text="#makeFM" />
+        <text name="chat_command_save_vehicles" text="#saveVehicles" />
 
         <!-- Help Info -->
         <text name="chat_command_info_me_admin"      text="If user has logged in as admin before, they can use this to make them admin again upon return to server." />
@@ -44,6 +45,7 @@
         <text name="chat_command_info_forgetme"      text="Sets user to no longer auto admin when they log on the server." />
         <text name="chat_command_info_getfarms"      text="Displays all available farms on server with ID." />
         <text name="chat_command_info_makefm"        text="Add user to farm with user id and farm id.  User ID provided from #getUsers command.  Farm ID provided from #getFarms command." />
+        <text name="chat_command_info_save_vehicles" text="Saves locations of all vehicles on the server to a file to be called later with #resetVehicles" />
 
         <!-- Help Page Text -->
         <text name="dc_help_title"          text="Dedi Companion" />
