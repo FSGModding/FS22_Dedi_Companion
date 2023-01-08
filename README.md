@@ -90,12 +90,19 @@ Currently only admin data from Admins.xml is added to the Link XML.  We do have 
 
 ## Screenshots
 ![#greetings](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-greeting-chat.png)
+
 ![#forgetMe](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-forgetme.png)
+
 ![#getUsers](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-getUsers.png)
-![#getFarms](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-getFarms.png)
+
+![#getFarms](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-getfarms.png)
+
 ![#makeAdmin](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-makeadmin.png)
+
 ![#meAdmin](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-meadmin.png)
+
 ![#moo](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-moo.png)
+
 ![#rememberMe](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-rememberme.png)
 
 ## Wanted Features
