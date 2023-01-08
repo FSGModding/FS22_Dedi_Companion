@@ -1,6 +1,6 @@
 # FSG FS22 Dedi Companion
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/FSGModding/FS22_Dedi_Companion) [![Build/release](https://github.com/FSGModding/FS22_Dedi_Companion/actions/workflows/build.yml/badge.svg)](https://github.com/FSGModding/FS22_Dedi_Companion/actions/workflows/build.yml) ![GitHub Release Date](https://img.shields.io/github/release-date/FSGModding/FS22_Dedi_Companion) ![GitHub all releases](https://img.shields.io/github/downloads/FSGModding/FS22_Dedi_Companion/total) [![Crowdin](https://badges.crowdin.net/fs22-dedi-companion/localized.svg)](https://crowdin.com/project/fs22-dedi-companion)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/FSGModding/FS22_Dedi_Companion) ![GitHub Release Date](https://img.shields.io/github/release-date/FSGModding/FS22_Dedi_Companion) ![GitHub all releases](https://img.shields.io/github/downloads/FSGModding/FS22_Dedi_Companion/total)
 
 
 FS22 Multiplayer Dedicated Server Companion saves all chat data to the current savegame and gives more control over dedicated servers.
