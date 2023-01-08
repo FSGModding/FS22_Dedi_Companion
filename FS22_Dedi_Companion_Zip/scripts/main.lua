@@ -11,7 +11,7 @@ local function init()
     dcDebug("Starting the Multiplayer Chat Companion")
   
 	source(modDirectory .. "scripts/chatNoti.lua")
-    source(modDirectory .. "scripts/chatLogger.lua")
+  source(modDirectory .. "scripts/chatLogger.lua")
 	source(modDirectory .. "scripts/getAdminLogin.lua")
 	source(modDirectory .. "scripts/getNewJoin.lua")
 
@@ -265,22 +265,25 @@ function ChatLogger:dediStatsUpdate(superFunc)
 
 			local adminSettingsFolderPath = getUserProfileAppPath()  .. "modSettings/FS22_Chat_Companion"
 			local adminSettingsFile = adminSettingsFolderPath .. "/Admins.xml"
-			local adminsKey = "admins"
-			local xmlFileAdsmins = XMLFile.load(adminsKey, adminSettingsFile)
-			local admins = {}
+      local adminsKey = "admins"
+      local admins = {}
+      -- Check if Admins.xml exists.
+      if ( fileExists(adminSettingsFile) ) then
+        local xmlFileAdsmins = XMLFile.load(adminsKey, adminSettingsFile)
 
-			dcDebug(xmlFileAdsmins, "Table")
+        dcDebug(xmlFileAdsmins, "Table")
 
-			xmlFileAdsmins:iterate(adminsKey .. ".admin", function (_, adminKey)
-				dcDebug("adminKey: " .. adminKey)
-				local admin = {
-					adminName = xmlFileAdsmins:getString(adminKey .. "#adminName"),
-					adminId = xmlFileAdsmins:getString(adminKey .. "#adminId"),
-				}
-				table.insert(admins, admin)
-			end)
+        xmlFileAdsmins:iterate(adminsKey .. ".admin", function (_, adminKey)
+          dcDebug("adminKey: " .. adminKey)
+          local admin = {
+            adminName = xmlFileAdsmins:getString(adminKey .. "#adminName"),
+            adminId = xmlFileAdsmins:getString(adminKey .. "#adminId"),
+          }
+          table.insert(admins, admin)
+        end)
 
-			dcDebug(admins, "Table")
+        dcDebug(admins, "Table")
+      end
 
 			i = 0
 
