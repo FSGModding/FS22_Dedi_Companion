@@ -88,6 +88,16 @@ The admin can set the system to forget them with the *#forgetMe* text command, a
 
 Currently only admin data from Admins.xml is added to the Link XML.  We do have plans to keep expanding this feature for use with the Farm Sim Game Bot.
 
+## Screenshots
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+
 ## Wanted Features
 - MOTH - Message of the day setting to welcome players when they join the server, or on a timer.
 - Vehicles locations save and reset ability.  The ability to save where vehicles are parked, then use a command to reset all vehicles to those remembered locations.  Troll cleanup, or put vehicles away when done.
@@ -95,3 +105,5 @@ Currently only admin data from Admins.xml is added to the Link XML.  We do have 
 
 ## Known Issues
 - #meNoAdmin - Remove admin perms.  Does not currently work.  Unable to remove without reconnecting to the server.
+- #makeFM - Not complete.  Does not currently work.
+- #saveVehicles - Not complete. Does not currently work.
