@@ -1,6 +1,11 @@
 # FSG FS22 Dedi Companion
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/FSGModding/FS22_Dedi_Companion) [![Build/release](https://github.com/FSGModding/FS22_Dedi_Companion/actions/workflows/build.yml/badge.svg)](https://github.com/FSGModding/FS22_Dedi_Companion/actions/workflows/build.yml) ![GitHub Release Date](https://img.shields.io/github/release-date/FSGModding/FS22_Dedi_Companion) ![GitHub all releases](https://img.shields.io/github/downloads/FSGModding/FS22_Dedi_Companion/total) [![Crowdin](https://badges.crowdin.net/fs22-dedi-companion/localized.svg)](https://crowdin.com/project/fs22-dedi-companion)
+
+
 FS22 Multiplayer Dedicated Server Companion saves all chat data to the current savegame and gives more control over dedicated servers.
+
+This is a mod file for [Farming-Simulator 22](https://www.farming-simulator.com/) dedicated servers and clients to expand features for dedicated servers.  
 
 __Features__
 - [Chat Logger](#chat-logger) - Logs player chats and saves them to active savegame as ChatLogger.xml
@@ -65,16 +70,16 @@ The admin can set the system to forget them with the *#forgetMe* text command, a
 ## Chat Commands
 - Change settings with chat commands.
 
-#meAdmin - If user has logged in as admin before, they can use this to make them admin again upon return to server.
-#meNoAdmin - Removes admin from yourself on current session.
-#getUsers - Displays all available users on server with ID.
-#moo - This command prints a text cow because why not.
-#makeAdmin - Admin can use this command to make another online user an admin.  User ID provided from #getUsers command.
-#rememberMe - Sets user to auto admin when they log on the server.
-#forgetMe - Sets user to no longer auto admin when they log on the server.
-#getFarms - Displays all available farms on server with ID.
-#makeFM - Add user to farm with user id and farm id.  User ID provided from #getUsers command.  Farm ID provided from #getFarms command.
-#saveVehicles - Saves locations of all vehicles on the server to a file to be called later with #resetVehicles.
+⋅⋅⋅#meAdmin - If user has logged in as admin before, they can use this to make them admin again upon return to server.
+⋅⋅⋅#meNoAdmin - Removes admin from yourself on current session.
+⋅⋅⋅#getUsers - Displays all available users on server with ID.
+⋅⋅⋅#moo - This command prints a text cow because why not.
+⋅⋅⋅#makeAdmin - Admin can use this command to make another online user an admin.  User ID provided from #getUsers command.
+⋅⋅⋅#rememberMe - Sets user to auto admin when they log on the server.
+⋅⋅⋅#forgetMe - Sets user to no longer auto admin when they log on the server.
+⋅⋅⋅#getFarms - Displays all available farms on server with ID.
+⋅⋅⋅#makeFM - Add user to farm with user id and farm id.  User ID provided from #getUsers command.  Farm ID provided from #getFarms command.
+⋅⋅⋅#saveVehicles - Saves locations of all vehicles on the server to a file to be called later with #resetVehicles.
 
 ## Expand Link XML
 - Expand data output in server's Link XML API.
