@@ -7,6 +7,8 @@ FS22 Multiplayer Dedicated Server Companion saves all chat data to the current s
 
 This is a mod file for [Farming-Simulator 22](https://www.farming-simulator.com/) dedicated servers and clients to expand features for dedicated servers.  
 
+Note: This is still a work in progress mod.  Not all features listed below are currently active and working as they should.
+
 __Features__
 - [Chat Logger](#chat-logger) - Logs player chats and saves them to active savegame as ChatLogger.xml
 - [Chat Notifications](#chat-notifications) - Server will respond and post updates in in-game chat window.
@@ -85,3 +87,11 @@ The admin can set the system to forget them with the *#forgetMe* text command, a
 - Expand data output in server's Link XML API.
 
 Currently only admin data from Admins.xml is added to the Link XML.  We do have plans to keep expanding this feature for use with the Farm Sim Game Bot.
+
+## Wanted Features
+- MOTH - Message of the day setting to welcome players when they join the server, or on a timer.
+- Vehicles locations save and reset ability.  The ability to save where vehicles are parked, then use a command to reset all vehicles to those remembered locations.  Troll cleanup, or put vehicles away when done.
+- Vehicle refill - a feature that will auto fill everything on a farm.  Seed, fert, fuel, electric, etc?
+
+## Known Issues
+- #meNoAdmin - Remove admin perms.  Does not currently work.  Unable to remove without reconnecting to the server.
