@@ -3,12 +3,12 @@
 FS22 Multiplayer Dedicated Server Companion saves all chat data to the current savegame and gives more control over dedicated servers.
 
 __Features__
-- [Chat Logger][Chat Logger] - Logs player chats and saves them to active savegame as ChatLogger.xml
-- [Auto Admin][Auto Admin] - Admins can set to have them set as admin every time they join server in future.
-- [Chat Commands][Chat Commands] - Change settings with chat commands.
-- [Expand Link XML][Expand Link XML] - Expand data output in server's Link XML API.
+- [Chat Logger](#chat-logger) - Logs player chats and saves them to active savegame as ChatLogger.xml
+- [Auto Admin](#auto-admin) - Admins can set to have them set as admin every time they join server in future.
+- [Chat Commands](#chat-commands) - Change settings with chat commands.
+- [Expand Link XML](#expand-link-xml)) - Expand data output in server's Link XML API.
 
-__Chat Logger__
+## Chat Logger
 - Logs player chats and saves them to active savegame and in modSettings folder as ChatLogger.xml
 
 ```lua
@@ -19,11 +19,11 @@ __Chat Logger__
 </chatLogger>
 ```
 
-__Auto Admin__
+## Auto Admin
 - Admins can set to have them set as admin every time they join server in future.
 
-__Chat Commands__
+## Chat Commands
 - Change settings with chat commands.
 
-__Expand Link XML__
+## Expand Link XML__
 - Expand data output in server's Link XML API.
