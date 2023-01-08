@@ -9,7 +9,7 @@ This is a mod file for [Farming-Simulator 22](https://www.farming-simulator.com/
 
 Note: This is still a work in progress mod.  Not all features listed below are currently active and working as they should.
 
-__Features__
+__Features ans Stuff__
 - [Chat Logger](#chat-logger) - Logs player chats and saves them to active savegame as ChatLogger.xml
 - [Chat Notifications](#chat-notifications) - Server will respond and post updates in in-game chat window.
 - [Auto Admin](#auto-admin) - Admins can set to have them set as admin every time they join server in future.
