@@ -89,14 +89,14 @@ The admin can set the system to forget them with the *#forgetMe* text command, a
 Currently only admin data from Admins.xml is added to the Link XML.  We do have plans to keep expanding this feature for use with the Farm Sim Game Bot.
 
 ## Screenshots
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
+![#greetings](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-greeting-chat.png)
+![#forgetMe](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-forgetme.png)
+![#getUsers](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-getUsers.png)
+![#getFarms](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-getFarms.png)
+![#makeAdmin](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-makeadmin.png)
+![#meAdmin](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-meadmin.png)
+![#moo](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-moo.png)
+![#rememberMe](https://raw.githubusercontent.com/FSGModding/FS22_Dedi_Companion/main/z-non-zip/fsg-fs22-dedi-companion-rememberme.png)
 
 ## Wanted Features
 - MOTH - Message of the day setting to welcome players when they join the server, or on a timer.
