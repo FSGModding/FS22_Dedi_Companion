@@ -4,7 +4,7 @@
 
     <texts>
         <!-- Server Responses -->
-	    <text name="chat_greeting01"            text="Hey %s!" />
+	      <text name="chat_greeting01"            text="Hey %s!" />
         <text name="chat_greeting02"            text="Hi there %s!" />
         <text name="chat_greeting03"            text="Hello %s!" />
         <text name="chat_greeting04"            text="Good day %s!" />
