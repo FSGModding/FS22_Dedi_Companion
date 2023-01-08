@@ -16,6 +16,10 @@ __Features__
 - [Chat Commands](#chat-commands) - Change settings with chat commands.
 - [Expand Link XML](#expand-link-xml) - Expand data output in server's Link XML API.
 
+- [Screenshots](#screenshots)
+- [Wanted Features](#wanted-features)
+- [Known Issues](#known-issues)
+
 ## Chat Logger
 - Logs player chats and saves them to active savegame and in modSettings folder as ChatLogger.xml
 
