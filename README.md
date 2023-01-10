@@ -19,6 +19,7 @@ __Features ans Stuff__
 - [Screenshots](#screenshots)
 - [Wanted Features](#wanted-features)
 - [Known Issues](#known-issues)
+- [Special Notes](#special-notes)
 
 ## Chat Logger
 - Logs player chats and saves them to active savegame and in modSettings folder as ChatLogger.xml
@@ -118,3 +119,6 @@ Currently only admin data from Admins.xml is added to the Link XML.  We do have 
 - #meNoAdmin - Remove admin perms.  Does not currently work.  Unable to remove without reconnecting to the server.
 - #makeFM - Not complete.  Does not currently work.
 - #saveVehicles - Not complete. Does not currently work.
+
+## Special Notes
+- We know that it is possible to have discord to server chat, however that requires FTP access to the server.  It is not possible to inject data into the server remotely without updating the savegame and restarting the server.  Farm Sim Game Bot will not support this ability as FTP access can create security concerns.
