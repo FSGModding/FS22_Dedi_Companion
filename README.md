@@ -1,3 +1,5 @@
+This project has been abondoned.  We no longer support this.
+
 # FSG FS22 Dedi Companion
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/FSGModding/FS22_Dedi_Companion) ![GitHub Release Date](https://img.shields.io/github/release-date/FSGModding/FS22_Dedi_Companion) ![GitHub all releases](https://img.shields.io/github/downloads/FSGModding/FS22_Dedi_Companion/total)
