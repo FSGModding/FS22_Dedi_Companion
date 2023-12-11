@@ -7,13 +7,18 @@ local modEnvironmentNewJoin
 
 ---Init the mod.
 local function init()
-    -- Mod is loaded in to the game here.  Yay!
-    dcDebug("Starting the Multiplayer Chat Companion")
-  
+  -- Mod is loaded for multiplayer.  Yay!
+  dcDebug("Starting the Multiplayer Chat Companion")
+
+  -- Load Chat and Admin Stuffs
 	source(modDirectory .. "scripts/chatNoti.lua")
   source(modDirectory .. "scripts/chatLogger.lua")
 	source(modDirectory .. "scripts/getAdminLogin.lua")
 	source(modDirectory .. "scripts/getNewJoin.lua")
+
+  -- Load Settings Menu Stuffs
+  source(modDirectory .. "scripts/menu/inGameMenuDediSettings.lua")
+  source(modDirectory .. "scripts/dediSettings.lua")
 
 	-- Load all command files
 	source(modDirectory .. "scripts/commands/forgetMe.lua")
@@ -26,6 +31,7 @@ local function init()
 	source(modDirectory .. "scripts/commands/removeAdmin.lua")
 	source(modDirectory .. "scripts/commands/saveVehicles.lua")
 
+  -- Register and over write base game functions
     assert(g_chatLogger == nil)
     modEnvironmentChat = ChatLogger:new(mission, g_i18n, modDirectory, modName)
     getfenv(0)["g_chatLogger"] = modEnvironmentChat
@@ -54,8 +60,11 @@ local function init()
 
 	FSBaseMission.updateGameStatsXML = Utils.overwrittenFunction(FSBaseMission.updateGameStatsXML, ChatLogger.dediStatsUpdate)
 
+  FSBaseMission.sendInitialClientState = Utils.appendedFunction(FSBaseMission.sendInitialClientState, DediSettings.sendInitialClientState)
+
 end
 
+-- Start the chat logger process
 ChatLogger = {}
 
 local ChatLogger_mt = Class(ChatLogger)
@@ -312,8 +321,7 @@ function onConnectionFinishedLoading(connection, ...)
 end
 
 function dcDebug(data, action)
-
-	if action ~= false then
+	if action ~= false and data ~= nil then
 		if action == 'Table' then
 			print("** Dedi Companion Debug Table **")
 			DebugUtil.printTableRecursively(data, "  tabledata : ", 0, 1)

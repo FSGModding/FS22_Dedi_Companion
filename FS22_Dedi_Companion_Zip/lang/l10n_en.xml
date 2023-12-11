@@ -48,11 +48,23 @@
         <text name="chat_command_info_save_vehicles" text="Saves locations of all vehicles on the server to a file to be called later with #resetVehicles" />
 
         <!-- Help Page Text -->
-        <text name="dc_help_title"          text="Dedi Companion" />
-        <text name="dc_overview"            text="Dedi Companion Help" />
-        <text name="dc_help_page_base_text" text="Dedi Companion is a simple yet advanced dedicated server tool to help admins better manage their servers." />
-        <text name="dc_help_page_base_cmds" text="The following command can be typed directly into the multiplayer chat to be executed." />
-        
+        <text name="dc_help_title"            text="Dedi Companion" />
+        <text name="dc_overview"              text="Dedi Companion Help" />
+        <text name="dc_help_page_base_text"   text="Dedi Companion is a simple yet advanced dedicated server tool to help admins better manage their servers." />
+        <text name="dc_help_page_base_cmds"   text="The following command can be typed directly into the multiplayer chat to be executed." />
+
+        <!-- Settings Page Text -->        
+        <text name="ui_inGameMenuDediSettings"    text="Dedi Companion Settings"/>
+        <text name="ui_inGameMenuAuto"            text="Server Auto Settings"/>
+        <text name="ui_title_autoFarmManager"     text="Auto Farm Manger"/>
+        <text name="ui_tip_autoFarmManager"       text="Activate or Deactivate server to set player as Farm Manger when they join any farm on this server."/>
+        <text name="ui_title_autoBuyVehicles"     text="Auto Buy Vehicles"/>
+        <text name="ui_tip_autoBuyVehicles"       text="Activate or Deactivate server to set player as allowed to buy vehicles when they join any farm on this server."/>
+        <text name="ui_title_autoSellVehicles"    text="Auto Sell Vehicles"/>
+        <text name="ui_tip_autoSellVehicles"      text="Activate or Deactivate server to set player as allowed to sell vehicles when they join any farm on this server."/>
+        <text name="ui_title_motd"                text="MOTD Text" />
+        <text name="ui_tip_motd"                  text="Message of the day text that displays when users join the server." />
+
 
     </texts>
 </l10n>
